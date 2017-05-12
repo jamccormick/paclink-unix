@@ -1,3 +1,13 @@
+
+Building on Ubuntu (17.04)
+======
+
+You will need to run the following command to get everything:
+
+`sudo apt-get install sendmail libdb5.3-dev libgmime-2.6-dev -y`
+
+That will provide all the build files.  I don't know about Fedora or Mac yet.  
+
 Original Readme, including license terms, which still very much apply here
 ======
 
