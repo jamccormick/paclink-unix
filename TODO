@@ -1,0 +1,23 @@
+$Id: TODO,v 1.2 2006/10/22 22:52:40 castellano Exp $
+
+serial TNC support
+
+HTML -> text conversion
+
+memory allocation/freeing audit
+
+return code checking audit
+
+security audit
+
+file locking
+
+tactical callsign support
+
+comm scripting
+
+direct SMTP support (inbound forwarded to port 25, outbound direct
+SMTP from client to paclink-unix SMTP server)
+
+documentation :-)
+

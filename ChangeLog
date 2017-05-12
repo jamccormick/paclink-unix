@@ -1,0 +1,203 @@
+$Id: ChangeLog,v 1.19 2010/06/22 05:52:25 basilgunn Exp $
+
+Mon Jun 21 22:45:51 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Took Encode routines from this link by Haruyasu Yoshizaki & T. Tagawa 
+       http://sunsite.bilkent.edu.tr/pub/tex/ctan/tools/xlharc/lzhuf.c
+       and integrated to fix problem of hang when encoding files larger
+       than 32K bytes.
+      File modified:  lzhuf_1.c
+
+Sun Jun 20 18:38:15 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Detect when EncodeChar() parameters are beyond reasonable and
+       exit with an input file too big message.  This fixes a hang
+       when lzhuf trys to compress png files greater than 32K.
+      File modified:  lzhuf_1.c
+
+Thu May  6 12:21:21 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Add a check for an AX25 socket connection upon exiting
+       wlax25 client and wait for disconnect.
+      File modified:  wl2kax25d.c
+
+Tue May  4 12:41:48 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Cleanup print_log() calls.
+      Fixes a bug where error/debug messages in mid.c were still
+       being sent to stderr for wl2kax25d daemon.
+      Files modified:
+        Makefile.am
+        mail.wl2k.c
+        mid.c
+        mime2wl.c
+        wl2k.c
+        wl2k.h
+
+    * Fix bug in daemon when using verbose switch causes display of
+      version to stdout.
+      File modified:  wl2kax25d.c
+
+    * Factored out print_log() function into a separate file.
+      Files added:
+        printlog.c
+        printlog.h
+
+Sun Apr 18 12:53:42 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Fix for bug # 2988770.
+      Got rid of -p point-to-point run time option.  This is
+      handled by WL2KAX25_DAEMON conditional compile flag.
+      File modified: wl2kax25d.c
+
+Sun Apr 18 12:36:56 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Added notes on how to get & build paclink-unix from
+      SourceForge CVS repository.
+      File added: INTALL.CVS
+
+Sat Apr 17 08:46:32 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Fixed version display (-v) & config display (-C) when wl2kax25d
+      is run from a console. Normally wl2kax25d is run from ax25 daemon.
+      File modified: wl2kax25d.c
+
+Fri Apr 16 19:01:52 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Add daemon function to answer Airmail requests by radio.
+    * Change wl2kexchange() call to include input & output stream pointers.
+    * Change all stderr output to syslog output
+    * Added wl2kax25d to compile targets.
+    * Added WL2KAX25_DAEMON conditional flag.
+    * Added syslog.h to AC_CHECK_HEADERS.
+      Files modified:
+        configure.ac
+        Makefile.am
+        wl2kax25.c
+        timeout.c
+        mime2wl.c
+        wl2k.c
+        wl2k.h
+        wl2kserial.c
+        wl2ktelnet.c
+      File added: wl2kax25d.c
+
+    * Add ability to parse quoted strings with spaces, for welcome message.
+    * Add grid square locator & welcome message config variables.
+      Files modified:    
+        conf.c
+        wl2k.conf.dist
+
+Wed Apr  7 15:55:01 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Change config->timeoutsecs to unsigned int to match alarm(arg).
+    * Call settimeout() from child process in wl2kax25.c
+    * Remove running timeout alarm signal from parent process.
+    * SIGALRM handler is set once in settimeout instead of every call
+      to resettimeout()
+      Files modified:
+        wl2kax25.c    
+        wl2ktelnet.c    
+        wl2kserial.c
+        timeout.c
+        timeout.h
+
+Wed Apr  7 14:41:55 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Fix for bug # 2983467 Protocol not working properly for FS NNN
+    * Add a check for prop->delete before calling putcompressed().
+      File modified: wl2k.c
+
+Sun Mar 14 09:45:46 PDT 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Change help & version option output to be stdout to enable
+      using help2man program. 
+    * Shorten version string to work better with help2man program.
+    * Add display of gmime lib version conditional on verbose flag.
+    * Make display of parameters more consistent amongst programs.
+    * Make verbose flag a global.
+      Files modified:
+        wl2kax25.c    
+        wl2ktelnet.c    
+        wl2kserial.c
+
+Sat Mar 13 12:29:53 PST 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Outbound sid string now displays PACKAGE_VERSION number.
+      File modified:  wl2k.c
+
+Sat Mar 13 11:57:20 PST 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Get rid of version number header file.
+    * Version number now pulled from string defined in configure.ac
+      Files modified:
+        configure.ac
+        wl2kax25.c    
+        wl2ktelnet.c    
+        wl2kserial.c
+      File deleted:  
+        version.h
+
+Thu Mar 11 15:12:00 PST 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Add version number to wl2kxxxx programs.
+    * wl2kax25, wl2ktelnet & wl2kserial now pass command line
+      arguments as option args instead of being positional.
+      Files modified:
+        wl2kax25.c    
+        wl2ktelnet.c    
+        wl2kserial.c    
+        wl2k.conf.dist
+      Files added:
+        version.h <- project version # 0.5(0)
+
+    * Add reading config file functionality to wlk2kax25, wl2ktelnet,
+      and wl2kserial.
+      File modified:  Makefile.am
+
+    * Add default values for command line options.
+    * Fix parsing problem when '#' is first char in a line. 
+      Files modified:
+        conf.h
+        conf.c
+
+Wed Mar  3 16:34:40 PST 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Fix for bug # 2958148, message retrieval latency.
+      Mbo mail header is now dependent on From mail header.
+      File modified:  mime2wl.c
+
+Thu Feb 11 15:52:59 PST 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Fix for bug # 2950104 excessive proposal deletion.
+    * Add check for unlink failure.
+      File modified:  wl2k.c
+
+Wed Feb 03 09:56 PST 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Fix for Bug # 2945529 sending multiple messages or messages
+      larger than around 250 bytes over writes output buffer.
+      Files modified:
+        wl2kax25.c
+        wl2k.c
+
+Fri Jan 22 17:10 PST 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Add a command line option (-m) to allow receiving messages
+      sent to yourself.  Helpful for debugging & mimics behavior
+      of Airmail3.exe.
+      Files modified:
+        mid.h
+        mime2wl.h
+        mid.c
+        mime2wl.c
+        mail.wl2k.c
+
+Fri Jan 22 11:28 PST 2010  Basil Gunn <basil@pacabunga.com>
+
+    * Add a gmime line terminator filter to encode lone line-feeds
+      into CRLF pair.
+    * Add call to g_mime_parser_set_persist_stream() so that parser
+      will always load message content into memory.  This allows
+      input to come from a pipe.
+      File modified:  mime2wl.c
